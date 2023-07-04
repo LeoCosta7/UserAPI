@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "aNB95jSGQzW1cmeL5cnukA7QuegoHiWjauE2iffDVE1QE4D2FIu4vDaadp0n1ZdJF57i4gxa+PAJ43v0C2NU3g==",
+  "dgSpecHash": "WgaUapMxczP9hZD6VSYQtd4NCfGDS4XgpWwrFwDpsV0YOdOlomtsQOm7aFZ1xPBxyJAxBBts9RdirNK3IHw3eQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\Nameless\\Documents\\Github\\UserAPI\\UserAPI\\UserAPI.csproj",
+  "projectFilePath": "C:\\Users\\Nameless\\Documents\\Github\\UserAPI\\Userapi\\UserAPI.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Nameless\\.nuget\\packages\\azure.core\\1.24.0\\azure.core.1.24.0.nupkg.sha512",
     "C:\\Users\\Nameless\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
