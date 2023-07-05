@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Nameless\\Documents\\Github\\UserAPI\\Userapi\\UserAPI.csproj": {}
+    "C:\\Users\\Nameless\\Documents\\Github\\UserAPI\\UserAPI\\UserAPI.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Nameless\\Documents\\Github\\UserAPI\\Userapi\\UserAPI.csproj": {
+    "C:\\Users\\Nameless\\Documents\\Github\\UserAPI\\UserAPI\\UserAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Nameless\\Documents\\Github\\UserAPI\\Userapi\\UserAPI.csproj",
+        "projectUniqueName": "C:\\Users\\Nameless\\Documents\\Github\\UserAPI\\UserAPI\\UserAPI.csproj",
         "projectName": "UserAPI",
-        "projectPath": "C:\\Users\\Nameless\\Documents\\Github\\UserAPI\\Userapi\\UserAPI.csproj",
+        "projectPath": "C:\\Users\\Nameless\\Documents\\Github\\UserAPI\\UserAPI\\UserAPI.csproj",
         "packagesPath": "C:\\Users\\Nameless\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Nameless\\Documents\\Github\\UserAPI\\Userapi\\obj\\",
+        "outputPath": "C:\\Users\\Nameless\\Documents\\Github\\UserAPI\\UserAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Nameless\\AppData\\Roaming\\NuGet\\NuGet.Config",
