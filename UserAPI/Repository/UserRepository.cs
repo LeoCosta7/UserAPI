@@ -1,32 +1,40 @@
-﻿using UserAPI.Models;
+﻿using Microsoft.EntityFrameworkCore;
+using UserAPI.Data;
+using UserAPI.Models;
+using UserAPI.Repository.Interface;
 
 namespace UserAPI.Repository
 {
-    public class UserRepository
+    public class UserRepository : IUserRepository
     {
-        public Task<IEnumerable<User>> GetAllUsers()
+        private readonly DataContext _dataContext;
+        public UserRepository(DataContext dataContext)
         {
-            return null;
+            _dataContext = dataContext;
+        }
+        public async Task<IEnumerable<User>> GetAllUsers()
+        {
+            return await _dataContext.Users.ToListAsync();
         }
 
-        public Task<User> GetById(int id)
+        public async Task<User> GetById(int id)
         {
-            return null;
+            return await _dataContext.Users.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public void AddUser(User user)
         {
-
+            _dataContext.Users.Add(user);
         }
 
         public void UpdateUser(User user)
         {
-
+            _dataContext.Users.Update(user);
         }
 
         public void DeleteUser(User user)
         {
-
+            _dataContext.Users.Remove(user);
         }
     }
 }
