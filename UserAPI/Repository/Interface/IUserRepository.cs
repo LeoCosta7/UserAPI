@@ -14,5 +14,7 @@ namespace UserAPI.Repository.Interface
         void UpdateUser(User user);
 
         void DeleteUser(User user);
+
+        Task<bool> Commit();
     }
 }

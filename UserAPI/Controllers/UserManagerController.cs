@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using UserAPI.Models;
+using UserAPI.Repository.Interface;
 
 namespace UserAPI.Controllers
 {
@@ -7,10 +8,19 @@ namespace UserAPI.Controllers
     [Route("Api/controller")]
     public class UserManagerController : Controller
     {
+        private readonly IUserRepository _userRepository;
+
+        public UserManagerController(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
-            return null;
+            var users = await _userRepository.GetAllUsers();
+
+            return users.Any() ? Ok(users) : NoContent();
         }
 
         [HttpGet("{id}")]
@@ -20,9 +30,11 @@ namespace UserAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddUser()
+        public async Task<IActionResult> AddUser(User user)
         {
-            return null;
+            _userRepository.AddUser(user);
+
+            return await _userRepository.Commit() ? Ok("User added") : BadRequest("Error");
         }
 
         [HttpPut]
