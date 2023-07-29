@@ -8,6 +8,6 @@
 
         public string Address { get; set; }
 
-        public int DateOfBirth { get; set; }
+        public string DateOfBirth { get; set; }
     }
 }

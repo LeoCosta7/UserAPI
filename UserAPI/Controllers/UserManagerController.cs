@@ -15,7 +15,7 @@ namespace UserAPI.Controllers
             _userRepository = userRepository;
         }
 
-        [HttpGet]
+        [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
             var users = await _userRepository.GetAllUsers();
@@ -28,24 +28,35 @@ namespace UserAPI.Controllers
         {
             var user = await _userRepository.GetUserById(id);
 
-            return user is null ? BadRequest("Not ound") : Ok(user);
+            return user is null ? BadRequest("User Not Found") : Ok(user);
         }
 
-        [HttpPost]
+        [HttpPost("AddUser")]
         public async Task<IActionResult> AddUser(User user)
         {
             _userRepository.AddUser(user);
 
-            return await _userRepository.Commit() ? Ok("User added") : BadRequest("Error");
+            return await _userRepository.Commit() ? Ok("User successfully added ") : BadRequest("Error");
         }
 
-        [HttpPut]
-        public async Task<IActionResult> UpdateUser()
+        [HttpPut("UpdateUser{id}")]
+        public async Task<IActionResult> UpdateUser(int id, User ReceiverUser)
         {
-            return null;
+            var userDb = await _userRepository.GetUserById(id);
+
+            if (userDb is null)
+                NotFound("User Not Found");
+
+            userDb.Name = ReceiverUser.Name ?? userDb.Name;
+            userDb.Address = ReceiverUser.Address ?? userDb.Address;
+            userDb.DateOfBirth = ReceiverUser.DateOfBirth ?? userDb.DateOfBirth;
+
+            _userRepository.UpdateUser(userDb);
+
+            return await _userRepository.Commit() ? Ok("User successfully updated") : BadRequest("Error");
         }
 
-        [HttpDelete]
+        [HttpDelete("DeleteUser")]
         public async Task<IActionResult> DeleteUser()
         {
             return null;
