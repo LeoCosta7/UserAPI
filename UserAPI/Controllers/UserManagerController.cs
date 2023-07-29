@@ -23,10 +23,12 @@ namespace UserAPI.Controllers
             return users.Any() ? Ok(users) : NoContent();
         }
 
-        [HttpGet("{id}")]
+        [HttpGet("GetUserById{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
-            return null;
+            var user = await _userRepository.GetUserById(id);
+
+            return user is null ? BadRequest("Not ound") : Ok(user);
         }
 
         [HttpPost]

@@ -17,7 +17,7 @@ namespace UserAPI.Repository
             return await _dataContext.Users.ToListAsync();
         }
 
-        public async Task<User> GetById(int id)
+        public async Task<User> GetUserById(int id)
         {
             return await _dataContext.Users.Where(x => x.Id == id).FirstOrDefaultAsync();
         }

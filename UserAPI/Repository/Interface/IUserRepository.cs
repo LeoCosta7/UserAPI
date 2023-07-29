@@ -7,7 +7,7 @@ namespace UserAPI.Repository.Interface
     {
         Task<IEnumerable<User>> GetAllUsers();
 
-        Task<User> GetById(int id);
+        Task<User> GetUserById(int id);
 
         void AddUser(User user);
 
