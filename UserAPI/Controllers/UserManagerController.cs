@@ -23,6 +23,7 @@ namespace UserAPI.Controllers
             return users.Any() ? Ok(users) : NoContent();
         }
 
+
         [HttpGet("GetUserById{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
@@ -31,6 +32,7 @@ namespace UserAPI.Controllers
             return user is null ? BadRequest("User Not Found") : Ok(user);
         }
 
+
         [HttpPost("AddUser")]
         public async Task<IActionResult> AddUser(User user)
         {
@@ -38,6 +40,7 @@ namespace UserAPI.Controllers
 
             return await _userRepository.Commit() ? Ok("User successfully added ") : BadRequest("Error");
         }
+
 
         [HttpPut("UpdateUser{id}")]
         public async Task<IActionResult> UpdateUser(int id, User ReceiverUser)
@@ -56,10 +59,18 @@ namespace UserAPI.Controllers
             return await _userRepository.Commit() ? Ok("User successfully updated") : BadRequest("Error");
         }
 
-        [HttpDelete("DeleteUser")]
-        public async Task<IActionResult> DeleteUser()
+
+        [HttpDelete("DeleteUser{id}")]
+        public async Task<IActionResult> DeleteUser(int id)
         {
-            return null;
+            User userDb = await _userRepository.GetUserById(id);
+
+            if (userDb is null)
+                NotFound("User not found");
+
+            _userRepository.DeleteUser(userDb);
+
+            return await _userRepository.Commit() ? Ok("User sucessfully delete") : BadRequest("Error");
         }
     }
 }
