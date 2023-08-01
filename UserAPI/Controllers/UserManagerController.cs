@@ -18,7 +18,7 @@ namespace UserAPI.Controllers
         [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
-            var users = await _userRepository.GetAllUsers();
+            IEnumerable<User> users = await _userRepository.GetAllUsers();
 
             return users.Any() ? Ok(users) : NoContent();
         }
@@ -26,7 +26,7 @@ namespace UserAPI.Controllers
         [HttpGet("GetUserById{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
-            var user = await _userRepository.GetUserById(id);
+            User user = await _userRepository.GetUserById(id);
 
             return user is null ? BadRequest("User Not Found") : Ok(user);
         }
@@ -42,14 +42,14 @@ namespace UserAPI.Controllers
         [HttpPut("UpdateUser{id}")]
         public async Task<IActionResult> UpdateUser(int id, User ReceiverUser)
         {
-            var userDb = await _userRepository.GetUserById(id);
+            User userDb = await _userRepository.GetUserById(id);
 
             if (userDb is null)
                 NotFound("User Not Found");
 
-            userDb.Name = ReceiverUser.Name ?? userDb.Name;
-            userDb.Address = ReceiverUser.Address ?? userDb.Address;
-            userDb.DateOfBirth = ReceiverUser.DateOfBirth ?? userDb.DateOfBirth;
+            //userDb.Name = ReceiverUser.Name ?? userDb.Name;
+            //userDb.Address = ReceiverUser.Address ?? userDb.Address;
+            //userDb.DateOfBirth = ReceiverUser.DateOfBirth ?? userDb.DateOfBirth;
 
             _userRepository.UpdateUser(userDb);
 
