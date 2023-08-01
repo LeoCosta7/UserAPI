@@ -18,59 +18,95 @@ namespace UserAPI.Controllers
         [HttpGet("GetAllUsers")]
         public async Task<IActionResult> GetAllUsers()
         {
-            IEnumerable<User> users = await _userRepository.GetAllUsers();
+            try
+            {
+                IEnumerable<User> users = await _userRepository.GetAllUsers();
 
-            return users.Any() ? Ok(users) : NoContent();
+                return users.Any() ? Ok(users) : NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }            
         }
 
 
         [HttpGet("GetUserById{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
-            User user = await _userRepository.GetUserById(id);
+            try
+            {
+                User user = await _userRepository.GetUserById(id);
 
-            return user is null ? BadRequest("User Not Found") : Ok(user);
+                return user is null ? BadRequest("User Not Found") : Ok(user);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }            
         }
-
 
         [HttpPost("AddUser")]
         public async Task<IActionResult> AddUser(User user)
         {
-            _userRepository.AddUser(user);
+            try
+            {
+                _userRepository.AddUser(user);
 
-            return await _userRepository.Commit() ? Ok("User successfully added ") : BadRequest("Error");
+                await _userRepository.Commit();
+
+                return Ok("User successfully added");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error " + ex.Message);
+            }
         }
-
 
         [HttpPut("UpdateUser{id}")]
         public async Task<IActionResult> UpdateUser(int id, User ReceiverUser)
         {
-            User userDb = await _userRepository.GetUserById(id);
+            try
+            {
+                User userDb = await _userRepository.GetUserById(id);
 
-            if (userDb is null)
-                NotFound("User Not Found");
+                if (userDb is null)
+                    return NotFound("User Not Found");
 
-            //userDb.Name = ReceiverUser.Name ?? userDb.Name;
-            //userDb.Address = ReceiverUser.Address ?? userDb.Address;
-            //userDb.DateOfBirth = ReceiverUser.DateOfBirth ?? userDb.DateOfBirth;
+                //userDb.Name = ReceiverUser.Name ?? userDb.Name;
+                //userDb.Address = ReceiverUser.Address ?? userDb.Address;
+                //userDb.DateOfBirth = ReceiverUser.DateOfBirth ?? userDb.DateOfBirth;
 
-            _userRepository.UpdateUser(userDb);
+                _userRepository.UpdateUser(userDb);
+                await _userRepository.Commit();
 
-            return await _userRepository.Commit() ? Ok("User successfully updated") : BadRequest("Error");
+                return Ok("User successfully updated");
+            }
+            catch(Exception ex)
+            {
+                return BadRequest("Error " + ex.Message);
+            }
         }
-
 
         [HttpDelete("DeleteUser{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {
-            User userDb = await _userRepository.GetUserById(id);
+            try
+            {
+                User userDb = await _userRepository.GetUserById(id);
 
-            if (userDb is null)
-                NotFound("User not found");
+                if (userDb is null)
+                    return NotFound("User not found");
 
-            _userRepository.DeleteUser(userDb);
+                _userRepository.DeleteUser(userDb);
+                await _userRepository.Commit();
 
-            return await _userRepository.Commit() ? Ok("User sucessfully delete") : BadRequest("Error");
+                return Ok("User sucessfully delete");
+            }
+            catch (Exception ex)
+            {
+                return BadRequest("Error " + ex.Message);
+            }            
         }
     }
 }

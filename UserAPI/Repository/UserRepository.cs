@@ -37,9 +37,9 @@ namespace UserAPI.Repository
             _dataContext.Users.Remove(user);
         }
 
-        public async Task<bool> Commit()
+        public async Task Commit()
         {
-            return await _dataContext.SaveChangesAsync() > 0;
+            await _dataContext.SaveChangesAsync();
         }
     }
 }
