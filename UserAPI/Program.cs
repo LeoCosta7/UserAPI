@@ -1,9 +1,13 @@
 using Microsoft.EntityFrameworkCore;
+using UserAPI.AutoMapper;
 using UserAPI.Data;
 using UserAPI.Repository;
 using UserAPI.Repository.Interface;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Configuração do AutoMapper
+builder.Services.AddAutoMapper(typeof(AutoMapperConfig));
 
 builder.Services.AddDbContext<DataContext>(options =>
 {

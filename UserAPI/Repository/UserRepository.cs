@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using AutoMapper;
+using Microsoft.EntityFrameworkCore;
 using UserAPI.Data;
+using UserAPI.Entity;
 using UserAPI.Models;
 using UserAPI.Repository.Interface;
 
@@ -8,9 +10,11 @@ namespace UserAPI.Repository
     public class UserRepository : IUserRepository
     {
         private readonly DataContext _dataContext;
-        public UserRepository(DataContext dataContext)
+        private readonly IMapper _mapper;
+        public UserRepository(DataContext dataContext, IMapper mapper)
         {
             _dataContext = dataContext;
+            _mapper = mapper;
         }
         public async Task<IEnumerable<User>> GetAllUsers()
         {
@@ -40,6 +44,11 @@ namespace UserAPI.Repository
         public async Task Commit()
         {
             await _dataContext.SaveChangesAsync();
+        }
+
+        public User Map(UserViewModel userViewModel)
+        {
+            return _mapper.Map<User>(userViewModel);
         }
     }
 }

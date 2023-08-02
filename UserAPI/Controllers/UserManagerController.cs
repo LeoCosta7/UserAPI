@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using UserAPI.Entity;
 using UserAPI.Models;
 using UserAPI.Repository.Interface;
 
@@ -47,11 +48,11 @@ namespace UserAPI.Controllers
         }
 
         [HttpPost("AddUser")]
-        public async Task<IActionResult> AddUser(User user)
+        public async Task<IActionResult> AddUser(UserViewModel userViewModel)
         {
             try
             {
-                _userRepository.AddUser(user);
+                //_userRepository.AddUser(user);
 
                 await _userRepository.Commit();
 
@@ -64,7 +65,7 @@ namespace UserAPI.Controllers
         }
 
         [HttpPut("UpdateUser{id}")]
-        public async Task<IActionResult> UpdateUser(int id, User ReceiverUser)
+        public async Task<IActionResult> UpdateUser(int id, UserViewModel userViewModel)
         {
             try
             {
@@ -73,11 +74,13 @@ namespace UserAPI.Controllers
                 if (userDb is null)
                     return NotFound("User Not Found");
 
+                User userMappser = _userRepository.Map(userViewModel);
+
                 //userDb.Name = ReceiverUser.Name ?? userDb.Name;
                 //userDb.Address = ReceiverUser.Address ?? userDb.Address;
                 //userDb.DateOfBirth = ReceiverUser.DateOfBirth ?? userDb.DateOfBirth;
 
-                _userRepository.UpdateUser(userDb);
+                _userRepository.UpdateUser(userMappser);
                 await _userRepository.Commit();
 
                 return Ok("User successfully updated");

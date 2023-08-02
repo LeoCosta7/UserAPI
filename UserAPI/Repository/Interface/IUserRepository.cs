@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using UserAPI.Entity;
 using UserAPI.Models;
 
 namespace UserAPI.Repository.Interface
@@ -14,6 +15,8 @@ namespace UserAPI.Repository.Interface
         void UpdateUser(User user);
 
         void DeleteUser(User user);
+
+        User Map(UserViewModel userViewModel);
 
         Task Commit();
     }
